@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Асоціація сприяння безпеці на транспорті України</title>
-  <link rel="stylesheet" href="../site.css">
   <style>
-    body {
+    body, html {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      padding: 0;
+      width: 100%;
+      height: 100%;
     }
     header {
       background: #2d442f;
@@ -17,6 +18,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      width: 100vw; /* завжди від краю до краю */
     }
     nav a {
       margin: 0 8px;
@@ -26,56 +28,59 @@
     }
     .hero {
       position: relative;
-      width: 100%;
-      min-height: 70vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100vw;  /* від краю до краю */
+      height: 70vh;  /* пропорційна висота */
       overflow: hidden;
     }
     .hero img {
-      position: absolute;
-      inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: cover;  /* розтяг на всю ширину */
     }
     .center-card {
-      position: relative;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       background: rgba(255,255,255,0.75);
-      padding: 20px 28px;
+      padding: 20px;
       border-radius: 8px;
-      font-size: clamp(16px, 4vw, 22px);
-      font-weight: 700;
+      text-align: center;
+      font-weight: bold;
       color: #2d442f;
-      text-align: center;
-      max-width: 600px;
-    }
-    footer {
-      background: #dfe8f2;
-      color: #222;
-      text-align: center;
-      padding: 12px;
-      font-size: 14px;
+      max-width: 90%;
     }
     .marquee {
+      width: 100vw; /* на всю ширину */
       background: #2d442f;
       color: white;
       font-weight: bold;
       padding: 12px;
-      overflow: hidden;
       white-space: nowrap;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
       animation: scroll 20s linear infinite;
     }
     @keyframes scroll {
-      from {transform: translateX(100%)}
-      to {transform: translateX(-100%)}
+      from { transform: translateX(0); }
+      to { transform: translateX(-100%); }
+    }
+    footer {
+      background: #dfe8f2;
+      text-align: center;
+      padding: 12px;
+      font-size: 14px;
+      width: 100vw;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="brand">Асоціація сприяння безпеці на транспорті України</div>
+    <div>Асоціація сприяння безпеці на транспорті України</div>
     <nav>
       <a href="../Home/index.html">Головна</a>
       <a href="../About/index.html">Про нас</a>
@@ -83,15 +88,10 @@
       <a href="../Publications/index.html">Публікації</a>
       <a href="../Contacts/index.html">Контакти</a>
     </nav>
-    <div>
-      <a href="#" class="lang-btn">Укр</a>
-      <a href="#" class="lang-btn">EN</a>
-    </div>
   </header>
 
   <section class="hero">
-    <!-- Шлях іде з Home/ вгору до кореня -->
-    <img src="../buses.jpg?v=2" alt="Автобуси України">
+    <img src="../buses.jpg?v=3" alt="Автобуси України">
     <div class="center-card">
       Впровадження стандартів ЄС<br>
       задля якості послуг для пасажирів<br>
@@ -100,8 +100,10 @@
   </section>
 
   <div class="marquee">
-    АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – 
-    АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE
+    <span>
+      АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE –
+      АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE
+    </span>
   </div>
 
   <footer>

@@ -14,7 +14,6 @@
     html{-webkit-text-size-adjust:100%}
     body{font-family:Arial,Helvetica,sans-serif;color:#111827;background:var(--page)}
 
-    /* Верхня зелена смуга від краю до краю */
     .topbar{width:100vw;background:var(--brand);color:#fff}
     .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 16px}
     .brand{font-weight:700;font-size:clamp(18px,4.4vw,32px);white-space:nowrap}
@@ -24,7 +23,6 @@
     .lang{margin-left:auto;display:flex;gap:8px}
     .lang a{color:#fff;text-decoration:none;font-weight:700;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25)}
 
-    /* HERO: фото від краю до краю, незалежно від URL */
     .hero{position:relative;width:100vw;min-height:70vh;overflow:hidden}
     .hero img{
       position:absolute;inset:0;width:100%;height:100%;
@@ -32,10 +30,9 @@
     }
     @media (min-width:1100px){ .hero{min-height:72vh} .hero img{object-fit:contain;background:#cfd8e3} }
 
-    /* Напівпрозорий блок — опущено на 4 см вниз */
-    .center-card{
-      position:absolute;left:50%;top:50%;
-      transform:translate(-50%,-50%) translateY(4cm);
+    .center-text-block{
+      position:absolute;left:50%;transform:translateX(-50%);
+      top:calc(60% + 4cm);
       background:rgba(255,255,255,.75);backdrop-filter:blur(1px);
       padding:clamp(12px,3.2vw,20px) clamp(16px,3.8vw,28px);
       border-radius:8px;text-align:center;color:var(--brand);
@@ -43,7 +40,6 @@
       max-width:min(92vw,680px);box-shadow:0 4px 14px rgba(0,0,0,.12)
     }
 
-    /* Нижня зелена смуга — фіксована; рухається лише текст */
     .ticker{position:fixed;left:0;right:0;bottom:env(safe-area-inset-bottom,0);
       height:var(--ticker-h);background:var(--brand);color:#fff;overflow:hidden;z-index:1000;width:100vw}
     .ticker__track{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;
@@ -55,14 +51,13 @@
     footer{width:100vw;background:var(--page);color:#222;text-align:center;padding:12px;font-size:14px;
       margin-bottom:calc(var(--ticker-h) + env(safe-area-inset-bottom,0))}
     @media (orientation:landscape){
-      .center-card{font-size:clamp(14px,2.6vw,18px)}
+      .center-text-block{font-size:clamp(14px,2.6vw,18px)}
       .ticker__text{font-size:clamp(12px,2.4vw,16px)}
     }
   </style>
 </head>
 <body>
 
-  <!-- Верхня зелена смуга -->
   <div class="topbar">
     <div class="wrap">
       <div class="brand">Асоціація сприяння безпеці на транспорті України</div>
@@ -77,17 +72,15 @@
     </div>
   </div>
 
-  <!-- Фон з автобусами (АБСОЛЮТНИЙ шлях до репозиторію) -->
   <section class="hero">
     <img src="/tsau-site-3003/buses.jpg?v=1" alt="Автобуси України" />
-    <div class="center-card">
+    <div class="center-text-block">
       Впровадження стандартів ЄС<br>
       задля якості послуг для пасажирів<br>
       і сталого розвитку громад
     </div>
   </section>
 
-  <!-- Нижня зелена смуга -->
   <div class="ticker" aria-hidden="false">
     <div class="ticker__track">
       <div class="ticker__text">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</div>

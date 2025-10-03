@@ -1,86 +1,105 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Асоціація сприяння безпеці на транспорті України</title>
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
+    :root{
+      --brand:#2d442f;      /* зелений */
+      --sand:#f5deb3;
+      --page:#dfe8f2;
+      --ticker-h:56px;
+      --footer-h:44px;
     }
-    header {
-      background: #2d442f;
-      color: white;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100vw; /* завжди від краю до краю */
+
+    /* Скидання */
+    *{ box-sizing:border-box }
+    html,body{ margin:0; padding:0; width:100%; height:100% }
+    html{ -webkit-text-size-adjust:100% }
+    body{ font-family:Arial,Helvetica,sans-serif; background:var(--page); color:#111827 }
+
+    /* ШАПКА: повна ширина, не рухається */
+    header{
+      position:relative;
+      width:100%;
+      background:var(--brand);
+      color:#fff;
+      padding:12px calc(16px + env(safe-area-inset-right,0)) 12px calc(16px + env(safe-area-inset-left,0));
+      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
     }
-    nav a {
-      margin: 0 8px;
-      color: #f5deb3;
-      text-decoration: none;
-      font-weight: 600;
+    .brand{ font-weight:700; font-size:clamp(18px,4.4vw,32px); white-space:nowrap }
+    nav{ display:flex; gap:12px; flex-wrap:wrap }
+    nav a{ color:var(--sand); text-decoration:none; font-size:clamp(12px,3.2vw,14px) }
+    nav a:hover{ text-decoration:underline }
+    .lang{ margin-left:auto; display:flex; gap:8px }
+    .lang a{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25) }
+
+    /* HERO: фонове фото від краю до краю, бар не рухається */
+    .hero{
+      position:relative;
+      width:100%;
+      min-height:70vh;
+      overflow:hidden;
     }
-    .hero {
-      position: relative;
-      width: 100vw;  /* від краю до краю */
-      height: 70vh;  /* пропорційна висота */
-      overflow: hidden;
+    .hero > img{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit:cover; object-position:center top;
+      display:block;
     }
-    .hero img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;  /* розтяг на всю ширину */
+    /* На дуже широких екранах показати більше зображення (не “перезумлювати”) */
+    @media (min-width:1100px){ .hero > img{ object-fit:contain; background:#cfd8e3 } }
+
+    .center-card{
+      position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      background:rgba(255,255,255,.72); backdrop-filter:blur(1px);
+      padding:clamp(12px,3.2vw,20px) clamp(16px,3.8vw,28px);
+      border-radius:10px; text-align:center; color:var(--brand);
+      font-weight:700; line-height:1.35; font-size:clamp(16px,4.6vw,22px);
+      max-width:min(92vw,680px); box-shadow:0 4px 14px rgba(0,0,0,.15);
     }
-    .center-card {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255,255,255,0.75);
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-      font-weight: bold;
-      color: #2d442f;
-      max-width: 90%;
+
+    /* ТІКЕР (бігучий рядок): зелена смуга ФІКСОВАНА, анімується тільки трек усередині */
+    .ticker{
+      position:fixed; left:0; right:0; bottom:env(safe-area-inset-bottom,0);
+      height:var(--ticker-h);
+      background:var(--brand); color:#fff;
+      overflow:hidden; z-index:1000;
     }
-    .marquee {
-      width: 100vw; /* на всю ширину */
-      background: #2d442f;
-      color: white;
-      font-weight: bold;
-      padding: 12px;
-      white-space: nowrap;
-      overflow: hidden;
-      box-sizing: border-box;
+    .ticker__track{
+      position:absolute; left:0; top:0; height:100%;
+      display:flex; align-items:center;
+      will-change:transform;
+      animation:track 22s linear infinite;
     }
-    .marquee span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: scroll 20s linear infinite;
+    .ticker__text{
+      white-space:nowrap; font-weight:700;
+      font-size:clamp(13px,3.8vw,18px);
+      padding:0 24px;
     }
-    @keyframes scroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-100%); }
+    /* безперервність: дублюємо контент двічі */
+    .ticker__track > div + div{ margin-left:24px }
+
+    @keyframes track{
+      0%{ transform:translateX(0) }
+      100%{ transform:translateX(-50%) }
     }
-    footer {
-      background: #dfe8f2;
-      text-align: center;
-      padding: 12px;
-      font-size: 14px;
-      width: 100vw;
+
+    /* ФУТЕР: повна ширина, під тікером */
+    footer{
+      width:100%;
+      background:var(--page); color:#222;
+      text-align:center; padding:12px;
+      font-size:14px;
+      margin-bottom:calc(var(--ticker-h) + env(safe-area-inset-bottom,0));
     }
   </style>
 </head>
 <body>
+  <!-- ВЕРХНЯ ЗЕЛЕНА СМУГА — від краю до краю -->
   <header>
-    <div>Асоціація сприяння безпеці на транспорті України</div>
+    <div class="brand">Асоціація сприяння безпеці на транспорті України</div>
     <nav>
       <a href="../Home/index.html">Головна</a>
       <a href="../About/index.html">Про нас</a>
@@ -88,10 +107,12 @@
       <a href="../Publications/index.html">Публікації</a>
       <a href="../Contacts/index.html">Контакти</a>
     </nav>
+    <div class="lang"><a href="#">Укр</a><a href="#">EN</a></div>
   </header>
 
+  <!-- ФОН НА ВСЮ ШИРИНУ -->
   <section class="hero">
-    <img src="../buses.jpg?v=3" alt="Автобуси України">
+    <img src="../buses.jpg?v=5" alt="Автобуси України">
     <div class="center-card">
       Впровадження стандартів ЄС<br>
       задля якості послуг для пасажирів<br>
@@ -99,15 +120,14 @@
     </div>
   </section>
 
-  <div class="marquee">
-    <span>
-      АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE –
-      АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE
-    </span>
+  <!-- НИЖНЯ ЗЕЛЕНА СМУГА — ФІКСОВАНА; рухається лише текст усередині -->
+  <div class="ticker" aria-hidden="false">
+    <div class="ticker__track">
+      <div class="ticker__text">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</div>
+      <div class="ticker__text">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</div>
+    </div>
   </div>
 
-  <footer>
-    ©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE
-  </footer>
+  <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
 </body>
 </html>

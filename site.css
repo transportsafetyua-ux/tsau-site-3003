@@ -22,8 +22,8 @@ body{
   color: var(--text);
 
   /* ФОН ГОЛОВНОЇ КАРТИНКИ — ШЛЯХ ДО ФАЙЛА В КОРЕНІ РЕПОЗИТОРІЮ */
-  /* Якщо файл називається інакше — перейменуй його в image1.png або заміни шлях нижче */
-  background: var(--page-bg) url('/tsau-site-3003/image1.png') no-repeat center top / contain;
+  /* Якщо файл називається інакше — перейменуй його в buses.jpg або заміни шлях нижче */
+  background: var(--page-bg) url('/tsau-site-3003/buses.jpg') no-repeat center top / contain;
 
   min-height:100vh;
   display:flex;

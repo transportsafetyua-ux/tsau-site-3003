@@ -4,62 +4,85 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>АСБТУ — Головна</title>
+
+  <!-- Підключаємо ваші спільні стилі, як на інших вкладках -->
+  <link rel="stylesheet" href="../site.css" />
+
   <style>
-    :root{
-      --brand:#2d442f; --sand:#f5deb3; --page:#dfe8f2;
-      --ticker-h:56px; --footer-h:44px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;padding:0}
-    html{-webkit-text-size-adjust:100%}
-    body{font-family:Arial,Helvetica,sans-serif;color:#111827;background:var(--page)}
-    /* верхня зелена смуга */
-    .topbar{width:100vw;background:var(--brand);color:#fff}
-    .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 16px}
-    .brand{font-weight:700;font-size:clamp(18px,4.4vw,32px);white-space:nowrap}
-    .nav{display:flex;gap:12px;flex-wrap:wrap}
-    .nav a{color:var(--sand);text-decoration:none;font-weight:600;font-size:clamp(12px,3.2vw,14px)}
-    .nav a:hover{text-decoration:underline}
-    .lang{margin-left:auto;display:flex;gap:8px}
-    .lang a{color:#fff;text-decoration:none;font-weight:700;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25)}
+    /* Лише те, що потрібно, щоб все було як на інших сторінках і працювало на iPhone */
 
-    /* HERO: фон-картинка від краю до краю */
-    .hero{position:relative;width:100vw;min-height:70vh;overflow:hidden}
-    .hero img#bg{
-      position:absolute;inset:0;width:100%;height:100%;
-      object-fit:cover;object-position:center top;display:block
+    /* Той самий фон, що й на інших вкладках, але з підпапки Home → ../buses.jpg */
+    html, body { height: 100%; margin: 0; }
+    body{
+      background-image: url("../buses.jpg");
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: cover;             /* щоб на iPhone/ландшафті було від краю до краю */
     }
-    @media (min-width:1100px){ .hero{min-height:72vh} .hero img#bg{object-fit:contain;background:#cfd8e3} }
 
+    /* Верхня зелена смуга від краю до краю (не рухається) */
+    .topbar{
+      width: 100vw;
+      background: #2d442f;
+      color: #fff;
+    }
+    .topbar .wrap{
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      padding: 12px 16px;
+    }
+    .brand{ font-weight: 700; font-size: clamp(18px,4.4vw,32px); white-space: nowrap; }
+    .nav{ display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav a{ color:#f5deb3; text-decoration:none; font-weight:600; font-size: clamp(12px,3.2vw,14px); }
+    .nav a:hover{ text-decoration: underline; }
+    .lang{ margin-left: auto; display: flex; gap: 8px; }
+    .lang a{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25) }
+
+    /* Центральний блок (як у тебе): */
     .center-card{
-      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-      background:rgba(255,255,255,.75);backdrop-filter:blur(1px);
-      padding:clamp(12px,3.2vw,20px) clamp(16px,3.8vw,28px);
-      border-radius:8px;text-align:center;color:var(--brand);
-      font-weight:700;line-height:1.35;font-size:clamp(16px,4.2vw,22px);
-      max-width:min(92vw,680px);box-shadow:0 4px 14px rgba(0,0,0,.12)
+      margin: 18vh auto 20vh;
+      max-width: 640px;
+      background: rgba(255,255,255,.75);
+      -webkit-backdrop-filter: blur(1px);
+              backdrop-filter: blur(1px);
+      border-radius: 8px;
+      padding: 18px 22px;
+      text-align: center;
+      color: #2d442f;
+      font-weight: 700;
+      line-height: 1.35;
+      font-size: clamp(16px, 4.2vw, 22px);
+      box-shadow: 0 4px 14px rgba(0,0,0,.12);
     }
 
-    /* нижня зелена смуга: фон фіксований, рухається лише текст */
-    .ticker{position:fixed;left:0;right:0;bottom:env(safe-area-inset-bottom,0);
-      height:var(--ticker-h);background:var(--brand);color:#fff;overflow:hidden;z-index:1000;width:100vw}
-    .ticker__track{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;
-      animation:track 22s linear infinite;will-change:transform}
-    .ticker__text{white-space:nowrap;font-weight:700;font-size:clamp(13px,3.6vw,18px);padding:0 24px}
-    .ticker__track>.ticker__text+.ticker__text{margin-left:24px}
-    @keyframes track{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    /* НИЖНЯ зелена смуга — фіксована, від краю до краю; рухається лише ТЕКСТ усередині */
+    .ticker{
+      position: fixed; left: 0; right: 0; bottom: env(safe-area-inset-bottom, 0);
+      height: 56px; background: #2d442f; color:#fff; overflow: hidden; z-index: 1000;
+    }
+    .ticker__track{
+      position: absolute; top: 0; left: 0; height: 100%;
+      display: flex; align-items: center;
+      animation: track 22s linear infinite;
+      will-change: transform;
+    }
+    .ticker__text{
+      white-space: nowrap; font-weight: 700; font-size: clamp(13px,3.6vw,18px);
+      padding: 0 24px;
+    }
+    .ticker__track > .ticker__text + .ticker__text{ margin-left: 24px; }
+    @keyframes track { 0%{ transform: translateX(0) } 100%{ transform: translateX(-50%) } }
 
-    footer{width:100vw;background:var(--page);color:#222;text-align:center;padding:12px;font-size:14px;
-      margin-bottom:calc(var(--ticker-h) + env(safe-area-inset-bottom,0))}
-    @media (orientation:landscape){
-      .center-card{font-size:clamp(14px,2.6vw,18px)}
-      .ticker__text{font-size:clamp(12px,2.4vw,16px)}
+    /* Футер під тікером, теж від краю до краю */
+    footer{
+      width: 100vw; background: #dfe8f2; color:#222; text-align:center;
+      padding: 12px; font-size: 14px;
+      margin-bottom: calc(56px + env(safe-area-inset-bottom, 0));
     }
   </style>
 </head>
 <body>
 
-  <!-- Верхня зелена смуга -->
+  <!-- Верхня зелена смуга (точно як на інших: назва + меню + мови) -->
   <div class="topbar">
     <div class="wrap">
       <div class="brand">Асоціація сприяння безпеці на транспорті України</div>
@@ -74,18 +97,14 @@
     </div>
   </div>
 
-  <!-- Фон з автобусами + центральний текст -->
-  <section class="hero">
-    <!-- САМОВІДНОВЛЕННЯ ШЛЯХУ: спроба Home/buses.jpg → корінь/../buses.jpg → абсолют до поточного репо -->
-    <img id="bg" src="buses.jpg?v=10" alt="Автобуси України">
-    <div class="center-card">
-      Впровадження стандартів ЄС<br>
-      задля якості послуг для пасажирів<br>
-      і сталого розвитку громад
-    </div>
-  </section>
+  <!-- Центральний блок (без жодних сторонніх фонових картинок у CSS) -->
+  <div class="center-card">
+    Впровадження стандартів ЄС<br>
+    задля якості послуг для пасажирів<br>
+    і сталого розвитку громад
+  </div>
 
-  <!-- Нижня зелена смуга -->
+  <!-- НИЖНЯ фіксована зелена смуга з бігучим рядком -->
   <div class="ticker" aria-hidden="false">
     <div class="ticker__track">
       <div class="ticker__text">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</div>
@@ -95,36 +114,5 @@
 
   <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
 
-  <script>
-    // Надійне підключення фото:
-    // 1) Home/buses.jpg
-    // 2) ../buses.jpg (корінь репозиторію)
-    // 3) абсолютний шлях до поточного репо (якщо URL має подвійне tsau-site-3003/)
-    (function(){
-      const img = document.getElementById('bg');
-      const ver = '10';
-      let tried = 0;
-
-      function tryNext(){
-        tried++;
-        if (tried === 1){
-          img.src = 'buses.jpg?v=' + ver; // Home/buses.jpg
-        } else if (tried === 2){
-          img.src = '../buses.jpg?v=' + ver; // корінь/buses.jpg
-        } else if (tried === 3){
-          // абсолютний шлях всередині поточного репо
-          // беремо поточний шлях і відтинаємо все після /Home/...
-          const p = location.pathname.replace(/\/Home\/.*/,'/buses.jpg?v='+ver);
-          img.src = p;
-        } else {
-          // остання спроба: нічого
-          img.onerror = null;
-        }
-      }
-      img.onerror = tryNext;
-      // запустити одразу (перша спроба)
-      tryNext();
-    })();
-  </script>
 </body>
 </html>

@@ -2,93 +2,90 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>АСБТУ — Головна</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Асоціація сприяння безпеці на транспорті України</title>
+
   <style>
     :root{
-      --brand:#2d442f; --sand:#f5deb3; --page:#dfe8f2;
-      --ticker-h:56px; --footer-h:44px;
+      --text:#111827;
+      --page-bg:#dfe8f2;
+      --ticker-h:60px;
+      --footer-h:44px;
+      --between:0px;
+      --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
+      --brand:#2d442f;
+      --nav-sand:#f5deb3;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;padding:0}
-    html{-webkit-text-size-adjust:100%}
-    body{font-family:Arial,Helvetica,sans-serif;color:#111827;background:var(--page)}
+    *{ box-sizing:border-box }
+    html,body{ height:100%; margin:0; }
 
-    .topbar{width:100vw;background:var(--brand);color:#fff}
-    .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 16px}
-    .brand{font-weight:700;font-size:clamp(18px,4.4vw,32px);white-space:nowrap}
-    .nav{display:flex;gap:12px;flex-wrap:wrap}
-    .nav a{color:var(--sand);text-decoration:none;font-weight:600;font-size:clamp(12px,3.2vw,14px)}
-    .nav a:hover{text-decoration:underline}
-    .lang{margin-left:auto;display:flex;gap:8px}
-    .lang a{color:#fff;text-decoration:none;font-weight:700;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25)}
-
-    .hero{position:relative;width:100vw;min-height:70vh;overflow:hidden}
-    .hero img{
-      position:absolute;inset:0;width:100%;height:100%;
-      object-fit:cover;object-position:center top;display:block
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background-color: var(--page-bg);
+      background-image: url('buses.jpg?v=3');   /* версіонування */
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: contain;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
     }
-    @media (min-width:1100px){ .hero{min-height:72vh} .hero img{object-fit:contain;background:#cfd8e3} }
+
+    header{background:var(--brand);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:16px}
+    .brand{font-weight:700;font-size:32px;white-space:nowrap;color:#fff}
+    nav{display:flex;gap:14px;margin-left:10px;flex-wrap:wrap}
+    nav a{color:var(--nav-sand);text-decoration:none;font-size:14px}
+    nav a:hover{text-decoration:underline}
+    .top-actions{margin-left:auto;display:flex;align-items:center;gap:12px}
+    .lang-btn{color:#fff;text-decoration:none;font-weight:700;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25)}
+    .lang-btn.active{background:rgba(255,255,255,.18)}
 
     .center-text-block{
       position:absolute;left:50%;transform:translateX(-50%);
-      top:calc(60% + 4cm);
-      background:rgba(255,255,255,.75);backdrop-filter:blur(1px);
-      padding:clamp(12px,3.2vw,20px) clamp(16px,3.8vw,28px);
-      border-radius:8px;text-align:center;color:var(--brand);
-      font-weight:700;line-height:1.35;font-size:clamp(16px,4.2vw,22px);
-      max-width:min(92vw,680px);box-shadow:0 4px 14px rgba(0,0,0,.12)
+      top:calc(60% + 4cm); /* опущено на 4см */
+      background:rgba(255,255,255,0.6);padding:16px 24px;border-radius:8px;
+      text-align:center;font-size:22px;font-weight:700;line-height:1.5;color:var(--brand);backdrop-filter:blur(1px)
     }
 
-    .ticker{position:fixed;left:0;right:0;bottom:env(safe-area-inset-bottom,0);
-      height:var(--ticker-h);background:var(--brand);color:#fff;overflow:hidden;z-index:1000;width:100vw}
-    .ticker__track{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;
-      animation:track 22s linear infinite;will-change:transform}
-    .ticker__text{white-space:nowrap;font-weight:700;font-size:clamp(13px,3.6vw,18px);padding:0 24px}
-    .ticker__track>.ticker__text+.ticker__text{margin-left:24px}
-    @keyframes track{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-    footer{width:100vw;background:var(--page);color:#222;text-align:center;padding:12px;font-size:14px;
-      margin-bottom:calc(var(--ticker-h) + env(safe-area-inset-bottom,0))}
-    @media (orientation:landscape){
-      .center-text-block{font-size:clamp(14px,2.6vw,18px)}
-      .ticker__text{font-size:clamp(12px,2.4vw,16px)}
-    }
+    .bottom-fixed{position:fixed;left:0;bottom:var(--safe-gap);width:100%;z-index:1000;pointer-events:none}
+    .bottom-inner{width:100%;display:flex;flex-direction:column;gap:var(--between);pointer-events:auto}
+    .bottom-bar{background:var(--brand);height:var(--ticker-h);width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .marquee{display:inline-block;white-space:nowrap;animation:scroll 25s linear infinite;color:#fff;font-size:18px;font-weight:700;padding:0 12px}
+    @keyframes scroll{0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
+    footer{background:var(--page-bg);height:var(--footer-h);width:100%;display:flex;align-items:flex-start;justify-content:center;text-align:center;font-size:14px;color:#222}
   </style>
 </head>
 <body>
-
-  <div class="topbar">
-    <div class="wrap">
-      <div class="brand">Асоціація сприяння безпеці на транспорті України</div>
-      <nav class="nav">
-        <a href="../Home/index.html">Головна</a>
-        <a href="../About/index.html">Про нас</a>
-        <a href="../Programs/index.html">Програми</a>
-        <a href="../Publications/index.html">Публікації</a>
-        <a href="../Contacts/index.html">Контакти</a>
-      </nav>
-      <div class="lang"><a href="#">Укр</a><a href="#">EN</a></div>
+  <header>
+    <div class="brand">Асоціація сприяння безпеці на транспорті України</div>
+    <nav>
+      <a href="../Home/index.html?v=3">Головна</a>
+      <a href="../About/index.html?v=3">Про нас</a>
+      <a href="../Programs/index.html?v=3">Програми</a>
+      <a href="../Publications/index.html?v=3">Публікації</a>
+      <a href="../Contacts/index.html?v=3">Контакти</a>
+    </nav>
+    <div class="top-actions">
+      <a href="#" class="lang-btn" id="btn-uk">Укр</a>
+      <a href="#" class="lang-btn" id="btn-en">EN</a>
     </div>
+  </header>
+
+  <div class="center-text-block">
+    Впровадження стандартів ЄС<br>
+    задля якості послуг для пасажирів<br>
+    і сталого розвитку громад
   </div>
 
-  <section class="hero">
-    <img src="/tsau-site-3003/buses.jpg?v=1" alt="Автобуси України" />
-    <div class="center-text-block">
-      Впровадження стандартів ЄС<br>
-      задля якості послуг для пасажирів<br>
-      і сталого розвитку громад
-    </div>
-  </section>
-
-  <div class="ticker" aria-hidden="false">
-    <div class="ticker__track">
-      <div class="ticker__text">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</div>
-      <div class="ticker__text">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</div>
+  <div class="bottom-fixed">
+    <div class="bottom-inner">
+      <div class="bottom-bar">
+        <div class="marquee">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</div>
+      </div>
+      <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
     </div>
   </div>
-
-  <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
-
 </body>
 </html>

@@ -8,13 +8,12 @@
     :root{
       --brand:#2d442f; --sand:#f5deb3; --page:#dfe8f2;
       --ticker-h:56px; --footer-h:44px;
-      --bg-url:none; /* сюди JS поставить правильний url(...) */
+      --bg-url:none;
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;padding:0}
     html{-webkit-text-size-adjust:100%}
 
-    /* ФОН: використовуємо змінну, яку виставить JS після перевірки шляхів */
     body{
       font-family:Arial,Helvetica,sans-serif;
       color:#111827;
@@ -22,11 +21,10 @@
       background-image:var(--bg-url);
       background-repeat:no-repeat;
       background-position:center top;
-      background-size:cover;          /* від краю до краю */
+      background-size:cover;
       min-height:100vh;
     }
 
-    /* Верхня зелена смуга */
     .topbar{width:100vw;background:var(--brand);color:#fff}
     .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 16px}
     .brand{font-weight:700;font-size:clamp(18px,4.4vw,32px);white-space:nowrap}
@@ -36,10 +34,10 @@
     .lang{margin-left:auto;display:flex;gap:8px}
     .lang a{color:#fff;text-decoration:none;font-weight:700;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25)}
 
-    /* Центральний блок — опущений на 4 см */
+    /* Центральний блок — тепер піднятий на 3 см */
     .center-text-block{
       position:absolute; left:50%; transform:translateX(-50%);
-      top:calc(60% + 4cm);
+      top:calc(60% + 1cm); /* було +4см, тепер піднято на 3см (тобто залишився зсув лише 1см) */
       background:rgba(255,255,255,.75); backdrop-filter:blur(1px);
       padding:clamp(12px,3.2vw,20px) clamp(16px,3.8vw,28px);
       border-radius:8px; text-align:center; color:var(--brand);
@@ -47,7 +45,6 @@
       max-width:min(92vw,680px); box-shadow:0 4px 14px rgba(0,0,0,.12)
     }
 
-    /* Нижня зелена смуга — фіксована; рухається лише текст */
     .ticker{
       position:fixed; left:0; right:0; bottom:env(safe-area-inset-bottom,0);
       height:var(--ticker-h); background:var(--brand); color:#fff;
@@ -101,24 +98,19 @@
   <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
 
   <script>
-    // Скидаємо кеш версією
-    const V='v=4';
-
-    // Перевіряємо 3 варіанти шляху до buses.jpg і ставимо перший, що працює
+    const V='v=5';
     (function(){
       const paths = [
-        '/tsau-site-3003/buses.jpg?' + V,  // абсолют до репозиторію
-        '../buses.jpg?' + V,               // з Home/ у корінь
-        'buses.jpg?' + V                   // у самій папці Home/
+        '/tsau-site-3003/buses.jpg?' + V,
+        '../buses.jpg?' + V,
+        'buses.jpg?' + V
       ];
       const test = new Image();
       let i = 0;
-
       function tryNext(){
         if(i >= paths.length){ return; }
         const url = paths[i++];
         test.onload = function(){
-          // виставляємо CSS-змінну як фон сторінки
           document.documentElement.style.setProperty('--bg-url', `url('${url}')`);
         };
         test.onerror = tryNext;

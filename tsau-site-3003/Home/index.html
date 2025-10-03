@@ -1,249 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Асоціація сприяння безпеці на транспорті України</title>
-
-  <style>
-    :root{
-      --brand:#0a3d91;
-      --text:#111827;
-      --bg-overlay: rgba(0,0,0,0.35);
-      --btn-orange:#f97316;
-      --btn-blue:#2563eb;
-      --page-bg:#dfe8f2;
-      --nav-sand:#f5deb3;
-      --brand-blue:#87ceeb;
-      --hero-text:#ffcc99;
-    }
-
-    html,body{ height:100%; margin:0; }
-    body{
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      /* фон сторінки */
-      background-color: var(--page-bg);
-      background-image: url('../image1.png');
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: contain;
-
-      display:flex;
-      flex-direction:column;
-      min-height:100vh;
-    }
-
-    /* Верхня синя смуга — як на HOME */
-    header{
-      background: var(--brand);
-      color:#fff;
-      padding:1% 2%;
-      display:flex;
-      align-items:center;
-      gap:2%;
-      position: relative;
-      top: 2%;
-    }
-    .brand{
-      font-weight:700;
-      font-size:2.8vw; /* масштабований шрифт */
-      white-space:nowrap;
-      color: var(--brand-blue);
-    }
-
-    /* Перемикач мови — активний, без зміни позицій */
-    .lang-switch{
-      display:flex; align-items:center; gap:0.5vw;
-      color: var(--nav-sand); font-size:1vw;
-      margin-left: 2%;
-    }
-    .lang-switch a{ color: var(--nav-sand); text-decoration:none; cursor:pointer; }
-    .lang-switch a.active{ text-decoration:underline; }
-    .lang-sep{ opacity:.7; }
-
-    /* Кнопки справа — як було */
-    .top-actions{ margin-left:auto; display:flex; align-items:center; gap:1vw; }
-    .btn{
-      display:inline-block; padding:0.5vw 1vw; border-radius:6px;
-      font-weight:700; color:#fff; text-decoration:none; font-size:1vw;
-      box-shadow:0 1px 3px rgba(0,0,0,.25);
-    }
-    .btn.orange{ background:var(--btn-orange); }
-    .btn.blue{   background:var(--btn-blue); }
-
-    /* Субнавігація під шапкою, справа в один рядок */
-    .subnav{
-      position: relative;
-      top: 2%;
-      display: flex;
-      justify-content: flex-end;
-      gap: 1.5vw;
-      padding: 0.5% 2% 0 2%;
-    }
-    .subnav a{ color: var(--brand); text-decoration: none; font-size: 1vw; font-weight: 600; }
-    .subnav a:hover{ text-decoration: underline; }
-
-    /* Основна область — без зміни структури */
-    main{
-      flex:1 0 auto;
-      position: relative;
-      /* Відступи як були (у відсотках, щоб нічого не їхало) */
-      padding:5% 2% 6%;
-      margin-top: 2%;
-    }
-
-    /* Напівпрозорий блок-герой — ФІКСОВАНЕ РОЗТАШУВАННЯ У ВІДСОТКАХ, без мм */
-    .hero{
-      position:absolute;
-      z-index:2;
-      top: 15%;   /* відповідник вашої зафіксованої висоти */
-      left: 40%;  /* відповідник вашого фіксованого зсуву вправо */
-      width: 45%;
-      background: var(--bg-overlay);
-      color: var(--hero-text);
-      padding: 1.8% 2.2%;
-      border-radius: 14px;
-      backdrop-filter: blur(2px);
-      box-shadow: 0 6px 24px rgba(0,0,0,.25);
-      text-align: center;
-    }
-    .hero h2{
-      margin:0 0 1% 0;
-      font-size:2.5vw;
-      line-height:1.25;
-      text-shadow:0 2px 8px rgba(0,0,0,.45);
-      color: var(--brand-blue);
-    }
-    .hero p{
-      margin:0;
-      font-size:1.5vw;
-      line-height:1.55;
-      text-shadow:0 1px 6px rgba(0,0,0,.45);
-    }
-
-    /* Нижня синя полоса з бігучою строкою — як на HOME */
-    .bottom-bar{
-      background: var(--brand);
-      height: 8%;
-      margin-top: 2%;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-    .marquee{
-      display: flex;
-      white-space: nowrap;
-      animation: scroll 25s linear infinite;
-      gap: 0.8%;
-      color: #fff;
-      font-size: 1.2vw;
-      font-weight: 700;
-    }
-    @keyframes scroll {
-      0%   { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-
-    /* Футер — сіро-блакитна полоса з ©2018 (фіксуємо низ) */
-    footer{
-      background: var(--page-bg);
-      flex-shrink:0;
-      text-align:center;
-      padding:1% 2%;
-      font-size:1vw;
-      color:#222;
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>АСБТУ — Головна</title>
+  <link rel="stylesheet" href="../site.css" />
+  <link rel="icon" href="../assets/favicon.ico" />
 </head>
 <body>
+  <!-- ЄДИНИЙ ХЕДЕР ДЛЯ ВСІХ ВКЛАДОК -->
+  <header class="header">
+    <div class="container nav-wrap">
+      <a class="logo" href="../index.html">АСБТУ</a>
 
-  <!-- Верхня синя смуга -->
-  <header>
-    <div class="brand" id="brand-text">Асоціація сприяння безпеці на транспорті України</div>
-    <div class="lang-switch">
-      <a id="lang-uk" class="active" href="#" onclick="switchLang('uk')">УКР</a>
-      <span class="lang-sep">|</span>
-      <a id="lang-en" href="#" onclick="switchLang('en')">ENG</a>
-    </div>
-    <div class="top-actions">
-      <a class="btn orange" href="../Join/index.html" id="btn-join">Долучитись</a>
-      <a class="btn blue"   href="../Support/index.html" id="btn-support">Підтримати</a>
+      <nav class="nav" id="site-nav">
+        <a href="../Home/index.html" class="active">Головна</a>
+        <a href="../About/index.html">Про нас</a>
+        <a href="../Programs/index.html">Програми</a>
+        <a href="../Publications/index.html">Публікації</a>
+        <a href="../Support/index.html">Підтримати</a>
+        <a href="../Join/index.html">Вступити</a>
+        <a href="../Contacts/index.html">Контакти</a>
+      </nav>
+
+      <!-- ЄДИНИЙ ПЕРЕМИКАЧ МОВ -->
+      <div class="lang-switch">
+        <a href="../Home/index.html" class="active">UA</a>
+        <span> / </span>
+        <a href="../Home/en/index.html">EN</a>
+      </div>
+
+      <button class="nav-toggle" aria-label="Меню" aria-expanded="false">☰</button>
     </div>
   </header>
 
-  <!-- Субнавігація справа -->
-  <div class="subnav">
-    <a href="../About/index.html" id="nav-about">Про нас</a>
-    <a href="../Programs/index.html" id="nav-programs">Програми</a>
-    <a href="../Join/index.html" id="nav-join">Долучитись</a>
-    <a href="../Support/index.html" id="nav-support">Підтримати</a>
-    <a href="../Publications/index.html" id="nav-publications">Публікації</a>
-    <a href="../Contacts/index.html" id="nav-contacts">Контакти</a>
-  </div>
-
-  <!-- Герой-блок на тій самій позиції -->
-  <main>
-    <section class="hero">
-      <h2 id="hero-title">Європейські норми для громадських перевезень</h2>
-      <p id="hero-text">
-        Експертна неурядова організація, що просуває європейські норми у громадських перевезеннях.
-        Ми працюємо для впровадження стандартів ЄС задля якості послуг для пасажирів і сталого розвитку громад.
-      </p>
-    </section>
-  </main>
-
-  <!-- Нижня синя полоса з бігучою строкою -->
-  <div class="bottom-bar">
-    <div class="marquee">
-      <span id="marquee-text">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE - АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</span>
+  <!-- HERO з коректним шляхом до фото -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="../buses.jpg" alt="Автобуси України" />
     </div>
-  </div>
+    <div class="container hero-content">
+      <h1>Безпечний, прозорий та доступний громадський транспорт</h1>
+      <p>Просуваємо європейські стандарти безпеки, прозорості та якості перевезень.</p>
+      <div class="cta">
+        <a class="btn primary" href="../Join/index.html">Приєднатися</a>
+        <a class="btn" href="../Support/index.html">Підтримати</a>
+      </div>
+    </div>
+  </section>
 
-  <!-- Сіро-блакитний футер з ©2018 -->
-  <footer>
-    ©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <strong>АСБТУ</strong><br />
+        <small>Transportation Safety Association of Ukraine</small>
+      </div>
+      <nav class="footer-nav">
+        <a href="../About/index.html">Про нас</a>
+        <a href="../Support/index.html">Підтримати</a>
+        <a href="../Contacts/index.html">Контакти</a>
+      </nav>
+      <div class="copyright">© <span id="y"></span> АСБТУ</div>
+    </div>
   </footer>
 
-  <!-- Перемикач мови: активний, без зміни розташування -->
   <script>
-    function switchLang(lang) {
-      if(lang==='uk'){
-        document.getElementById('brand-text').textContent="Асоціація сприяння безпеці на транспорті України";
-        document.getElementById('btn-join').textContent="Долучитись";
-        document.getElementById('btn-support').textContent="Підтримати";
-        document.getElementById('nav-about').textContent="Про нас";
-        document.getElementById('nav-programs').textContent="Програми";
-        document.getElementById('nav-join').textContent="Долучитись";
-        document.getElementById('nav-support').textContent="Підтримати";
-        document.getElementById('nav-publications').textContent="Публікації";
-        document.getElementById('nav-contacts').textContent="Контакти";
-        document.getElementById('hero-title').textContent="Європейські норми для громадських перевезень";
-        document.getElementById('hero-text').textContent="Експертна неурядова організація, що просуває європейські норми у громадських перевезеннях. Ми працюємо для впровадження стандартів ЄС задля якості послуг для пасажирів і сталого розвитку громад.";
-        document.getElementById('marquee-text').textContent="АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE - АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE";
-        document.getElementById('lang-uk').classList.add('active');
-        document.getElementById('lang-en').classList.remove('active');
-      } else {
-        document.getElementById('brand-text').textContent="Transportation Safety Association of Ukraine";
-        document.getElementById('btn-join').textContent="Join";
-        document.getElementById('btn-support').textContent="Support";
-        document.getElementById('nav-about').textContent="About us";
-        document.getElementById('nav-programs').textContent="Programs";
-        document.getElementById('nav-join').textContent="Join";
-        document.getElementById('nav-support').textContent="Support";
-        document.getElementById('nav-publications').textContent="Publications";
-        document.getElementById('nav-contacts').textContent="Contacts";
-        document.getElementById('hero-title').textContent="European standards for public transport";
-        document.getElementById('hero-text').textContent="An expert non-governmental organization that promotes European standards in public transport. We work to implement EU standards for passenger service quality and sustainable community development.";
-        document.getElementById('marquee-text').textContent="TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE - АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE - АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ";
-        document.getElementById('lang-en').classList.add('active');
-        document.getElementById('lang-uk').classList.remove('active');
-      }
-    }
+    const btn = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('site-nav');
+    btn?.addEventListener('click', () => {
+      const exp = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!exp));
+      nav.classList.toggle('open');
+    });
+    document.getElementById('y').textContent = new Date().getFullYear();
   </script>
-
 </body>
 </html>

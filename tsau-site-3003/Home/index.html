@@ -14,7 +14,7 @@
     html{-webkit-text-size-adjust:100%}
     body{font-family:Arial,Helvetica,sans-serif;color:#111827;background:var(--page)}
 
-    /* Верхня зелена смуга */
+    /* Верхня зелена смуга від краю до краю */
     .topbar{width:100vw;background:var(--brand);color:#fff}
     .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 16px}
     .brand{font-weight:700;font-size:clamp(18px,4.4vw,32px);white-space:nowrap}
@@ -24,7 +24,7 @@
     .lang{margin-left:auto;display:flex;gap:8px}
     .lang a{color:#fff;text-decoration:none;font-weight:700;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25)}
 
-    /* HERO: фото від краю до краю; саме <img>, не background */
+    /* HERO: фото від краю до краю, незалежно від URL */
     .hero{position:relative;width:100vw;min-height:70vh;overflow:hidden}
     .hero img{
       position:absolute;inset:0;width:100%;height:100%;
@@ -41,7 +41,7 @@
       max-width:min(92vw,680px);box-shadow:0 4px 14px rgba(0,0,0,.12)
     }
 
-    /* Нижня зелена смуга: фон фіксований, рухається лише текст */
+    /* Нижня зелена смуга — фіксована; рухається лише текст */
     .ticker{position:fixed;left:0;right:0;bottom:env(safe-area-inset-bottom,0);
       height:var(--ticker-h);background:var(--brand);color:#fff;overflow:hidden;z-index:1000;width:100vw}
     .ticker__track{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;
@@ -75,9 +75,9 @@
     </div>
   </div>
 
-  <!-- Фон з автобусами + центральний текст -->
+  <!-- Фон з автобусами (АБСОЛЮТНИЙ шлях до репозиторію) -->
   <section class="hero">
-    <img id="bg" alt="Автобуси України" />
+    <img src="/tsau-site-3003/buses.jpg?v=1" alt="Автобуси України" />
     <div class="center-card">
       Впровадження стандартів ЄС<br>
       задля якості послуг для пасажирів<br>
@@ -95,30 +95,5 @@
 
   <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
 
-  <script>
-    // Надійне підключення buses.jpg з трьома резервами:
-    // 1) Home/buses.jpg
-    // 2) ../buses.jpg (корінь репо)
-    // 3) /tsau-site-3003/buses.jpg (абсолют від домену)
-    (function(){
-      var ver = '12'; // змінюй при оновленні, щоб збити кеш
-      var candidates = [
-        'buses.jpg?v='+ver,
-        '../buses.jpg?v='+ver,
-        '/tsau-site-3003/buses.jpg?v='+ver
-      ];
-      var img = document.getElementById('bg');
-      var i = 0;
-
-      function tryNext(){
-        if (i >= candidates.length) return;
-        var test = new Image();
-        test.onload = function(){ img.src = test.src; };
-        test.onerror = function(){ i++; tryNext(); };
-        test.src = candidates[i];
-      }
-      tryNext();
-    })();
-  </script>
 </body>
 </html>

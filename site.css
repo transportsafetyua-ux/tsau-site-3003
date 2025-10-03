@@ -1,0 +1,113 @@
+/* === БАЗА / ЗМІННІ === */
+:root{
+  --brand:#2d442f;             /* темно-зелений для верхньої/нижньої смуг */
+  --page-bg:#dfe8f2;           /* сіро-блакитний фон сторінки */
+  --text:#111827;
+  --safe: env(safe-area-inset-bottom, 0px);
+  --gap: 10px;
+
+  /* висоти нижніх смуг */
+  --ticker-h:60px;
+  --footer-h:44px;
+  --between:0px;
+}
+
+/* Скидання дрібниць */
+*{ box-sizing:border-box; }
+html,body{ height:100%; margin:0; }
+img{ max-width:100%; height:auto; display:block; }
+
+/* Головні параметри сторінки */
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  color:var(--text);
+  background: var(--page-bg);
+  /* безпечні поля для iOS/Android (щоб смуги не ховались за Dock/Gesture bar) */
+  padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--gap) + var(--safe));
+}
+
+/* ===== ВЕРХНЯ СМУГА (HEADER) — на всю ширину ===== */
+header{
+  width:100%;
+  background:var(--brand);
+  color:#fff;
+  display:flex; align-items:center; gap:16px;
+  padding:12px 18px;
+}
+header .brand{
+  color:#fff; font-weight:700;
+  font-size:clamp(20px, 3vw, 32px);
+  white-space:nowrap;
+}
+header nav{ display:flex; gap:14px; flex-wrap:wrap; margin-left:10px; }
+header nav a{ color:#f5deb3; text-decoration:none; font-size:clamp(12px, 1.6vw, 14px); }
+header nav a:hover{ text-decoration:underline; }
+
+/* Кнопки перекладу праворуч (як на інших вкладках) */
+.top-actions{ margin-left:auto; display:flex; gap:8px; }
+.top-actions a{
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.25);
+  color:#fff; border-radius:8px; padding:6px 10px; font-weight:700;
+  text-decoration:none;
+}
+.top-actions a.active{ background:#fff; color:#1f2937; }
+
+/* Блок з фоновим зображенням (коли картинка у <img> на Home) */
+.hero-wrap{ width:100%; max-width:1400px; margin-inline:auto; }
+.hero-wrap img{ width:100%; height:auto; display:block; }
+
+/* Напівпрозорий інформаційний блок */
+.info-card{
+  position:relative;
+  margin: 0 auto;                   /* центр по горизонталі */
+  width:min(88vw,780px);
+  background:rgba(255,255,255,.88); /* саме напівпрозорий білий */
+  border-radius:12px;
+  padding:16px 22px;
+  box-shadow:0 6px 18px rgba(0,0,0,.15);
+  text-align:center;
+  backdrop-filter: blur(1px);
+}
+.info-card h2{ margin:0 0 10px 0; font-size:28px; line-height:1.25; color:#183027; }
+.info-card p{ margin:0; font-size:18px; line-height:1.5; color:#183027; font-weight:700; }
+
+/* ===== НИЖНІ СМУГИ — ФІКСОВАНІ, ЗІ SAFE-GAP ===== */
+.bottom-fixed{
+  position:fixed; left:0; bottom:calc(var(--safe));
+  width:100%; z-index:1000; pointer-events:none;
+}
+.bottom-fixed .bottom-inner{
+  pointer-events:auto;
+  display:flex; flex-direction:column; gap:var(--between); width:100%;
+}
+
+/* Смуга з бігучим рядком */
+.bottom-bar{
+  background:var(--brand);
+  height:var(--ticker-h);
+  width:100%;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.marquee{
+  white-space:nowrap; display:inline-block; padding:0 12px;
+  color:#fff; font-weight:700; font-size:18px;
+  animation:marq 25s linear infinite;
+}
+@keyframes marq{ 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
+
+/* Смуга з © */
+footer{
+  background:var(--page-bg);
+  height:var(--footer-h); width:100%;
+  display:flex; align-items:flex-start; justify-content:center;
+  padding-top:2px;                 /* ~0.1–0.5 мм еквівалент */
+  text-align:center; color:#222; font-size:14px;
+}
+
+/* Дрібні пристрої — ущільнюємо низ */
+@media (max-width:480px){
+  :root{ --ticker-h:52px; --footer-h:38px; }
+  .marquee{ font-size:16px; }
+}

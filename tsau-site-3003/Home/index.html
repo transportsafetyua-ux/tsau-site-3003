@@ -32,8 +32,10 @@
     }
     @media (min-width:1100px){ .hero{min-height:72vh} .hero img{object-fit:contain;background:#cfd8e3} }
 
+    /* Напівпрозорий блок — опущено на 4 см вниз */
     .center-card{
-      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+      position:absolute;left:50%;top:50%;
+      transform:translate(-50%,-50%) translateY(4cm);
       background:rgba(255,255,255,.75);backdrop-filter:blur(1px);
       padding:clamp(12px,3.2vw,20px) clamp(16px,3.8vw,28px);
       border-radius:8px;text-align:center;color:var(--brand);

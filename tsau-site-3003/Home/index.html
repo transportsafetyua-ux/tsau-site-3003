@@ -2,147 +2,77 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Асоціація сприяння безпеці на транспорті України</title>
-
   <style>
     :root{
       --text:#111827;
       --page-bg:#dfe8f2;
-
-      /* нижні смуги */
       --ticker-h:60px;
       --footer-h:44px;
       --between:0px;
-      --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
-
-      /* зелено-сірий брендовий колір, як на інших вкладках */
+      --safe-gap:calc(10px + env(safe-area-inset-bottom,0px));
       --brand:#2d442f;
       --nav-sand:#f5deb3;
     }
-
-    *{ box-sizing:border-box }
-    html,body{ height:100%; margin:0; }
-
-    /* Перемикач мови (укр/англ) — як на сторінці “Про нас” */
-    .t.en{ display:none; }
-    .lang-en .t.uk{ display:none; }
-    .lang-en .t.en{ display:inline; }
-
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    html{-webkit-text-size-adjust:100%}
+    .t.en{display:none}
+    .lang-en .t.uk{display:none}
+    .lang-en .t.en{display:inline}
     body{
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background-color: var(--page-bg);
-
-      /* фон-ілюстрація автобусів зберігається */
-      background-image: url('buses.jpg');
-      background-repeat: no-repeat;
-      background-position: center top;
-      background-size: contain;
-
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background-color:var(--page-bg);
+      background-image:url('buses.jpg');
+      background-repeat:no-repeat;
+      background-position:center top;
+      background-size:cover;
       min-height:100vh;
       display:flex;
       flex-direction:column;
-
-      /* резерв місця під фіксовані нижні смуги */
-      padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
+      padding-bottom:calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
     }
-
-    /* ШАПКА — стилі як на інших вкладках */
     header{
-      background: var(--brand);
+      background:var(--brand);
       color:#fff;
-      padding:12px 18px;
-      display:flex;
-      align-items:center;
-      gap:16px;
+      padding:12px 16px;
+      display:flex;align-items:center;gap:12px;
     }
     .brand{
       font-weight:700;
-      font-size:32px;
+      font-size:clamp(18px,5vw,32px);
       white-space:nowrap;
-      color:#fff;  /* білі літери бренду, як просили раніше */
-    }
-    nav{ display:flex; gap:14px; margin-left:10px; flex-wrap:wrap; }
-    nav a{ color: var(--nav-sand); text-decoration:none; font-size:14px; }
-    nav a:hover{ text-decoration:underline; }
-
-    .top-actions{ margin-left:auto; display:flex; align-items:center; gap:12px; }
-    .lang-btn{
-      color:#fff; text-decoration:none; font-weight:700;
-      padding:6px 10px; border-radius:6px;
-      border:1px solid rgba(255,255,255,.25);
-    }
-    .lang-btn.active{ background: rgba(255,255,255,.18); }
-
-    main{ flex:1 0 auto; padding:16px; }
-
-    /* Напівпрозорий центральний блок із трьома рядками — НЕ чіпали, лише дали дві мови */
-    .center-text-block{
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 60%;                         /* залишено ваше поточне розташування */
-      background: rgba(255,255,255,0.6);
-      padding: 16px 24px;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 1.5;
-      color: var(--brand);              /* колір літер як у смуги з бігучим рядком */
-      backdrop-filter: blur(1px);
-    }
-
-    /* НИЖНІ СМУГИ (залишено без змін) */
-    .bottom-fixed{
-      position: fixed;
-      left: 0;
-      bottom: var(--safe-gap);
-      width: 100%;
-      z-index: 1000;
-      pointer-events: none;
-    }
-    .bottom-inner{
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: var(--between);
-      pointer-events: auto;
-    }
-    .bottom-bar{
-      background: var(--brand);
-      height: var(--ticker-h);
-      width: 100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-    }
-    .marquee{
-      display:inline-block;
-      white-space:nowrap;
-      animation: scroll 25s linear infinite;
       color:#fff;
-      font-size:18px;
-      font-weight:700;
-      padding:0 12px;
     }
-    @keyframes scroll{
-      0%{ transform:translateX(100%); }
-      100%{ transform:translateX(-100%); }
-    }
-    footer{
-      background: var(--page-bg);
-      height: var(--footer-h);
-      width: 100%;
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
+    nav{display:flex;gap:12px;margin-left:8px;flex-wrap:wrap}
+    nav a{color:var(--nav-sand);text-decoration:none;font-size:clamp(12px,3.2vw,14px)}
+    nav a:hover{text-decoration:underline}
+    .top-actions{margin-left:auto;display:flex;align-items:center;gap:8px}
+    .lang-btn{color:#fff;text-decoration:none;font-weight:700;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25)}
+    .lang-btn.active{background:rgba(255,255,255,.18)}
+    main{flex:1 0 auto;padding:16px}
+    .center-text-block{
+      position:absolute;left:50%;transform:translateX(-50%);
+      top:55vh;
+      background:rgba(255,255,255,.6);
+      padding:clamp(10px,3vw,16px) clamp(14px,3.5vw,24px);
+      border-radius:8px;
       text-align:center;
-      font-size:14px;
-      color:#222;
+      font-size:clamp(16px,4.5vw,22px);
+      font-weight:700;
+      line-height:1.4;
+      color:var(--brand);
+      backdrop-filter:blur(1px);
+      max-width:min(92vw,900px);
     }
+    .bottom-fixed{position:fixed;left:0;bottom:var(--safe-gap);width:100%;z-index:1000;pointer-events:none}
+    .bottom-inner{width:100%;display:flex;flex-direction:column;gap:var(--between);pointer-events:auto}
+    .bottom-bar{background:var(--brand);height:var(--ticker-h);width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .marquee{display:inline-block;white-space:nowrap;animation:scroll 25s linear infinite;color:#fff;font-size:clamp(14px,4vw,18px);font-weight:700;padding:0 12px}
+    @keyframes scroll{0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
+    footer{background:var(--page-bg);height:var(--footer-h);width:100%;display:flex;align-items:flex-start;justify-content:center;text-align:center;font-size:14px;color:#222}
   </style>
 </head>
 <body>
@@ -151,7 +81,6 @@
       <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
       <span class="t en">Transportation Safety Association of Ukraine</span>
     </div>
-
     <nav>
       <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
       <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
@@ -159,15 +88,12 @@
       <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
       <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
     </nav>
-
     <div class="top-actions">
       <a href="#" class="lang-btn" id="btn-uk">Укр</a>
       <a href="#" class="lang-btn" id="btn-en">EN</a>
     </div>
   </header>
-
   <main></main>
-
   <div class="center-text-block">
     <span class="t uk">
       Впровадження стандартів ЄС<br>
@@ -180,8 +106,6 @@
       and sustainable community development
     </span>
   </div>
-
-  <!-- Нижні смуги -->
   <div class="bottom-fixed">
     <div class="bottom-inner">
       <div class="bottom-bar">
@@ -193,27 +117,22 @@
       <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
     </div>
   </div>
-
-  <!-- Та сама логіка перемикача мови, що й на “Про нас” -->
   <script>
     (function(){
-      const LANG_KEY = 'tsau_lang';
-      const body = document.body;
-      const ukBtn = document.getElementById('btn-uk');
-      const enBtn = document.getElementById('btn-en');
-
+      const LANG_KEY='tsau_lang';
+      const body=document.body;
+      const ukBtn=document.getElementById('btn-uk');
+      const enBtn=document.getElementById('btn-en');
       function applyLang(lang){
-        body.classList.toggle('lang-en', lang === 'en');
-        localStorage.setItem(LANG_KEY, lang);
-        ukBtn.classList.toggle('active', lang === 'uk');
-        enBtn.classList.toggle('active', lang === 'en');
+        body.classList.toggle('lang-en',lang==='en');
+        localStorage.setItem(LANG_KEY,lang);
+        ukBtn.classList.toggle('active',lang==='uk');
+        enBtn.classList.toggle('active',lang==='en');
       }
-
-      const saved = localStorage.getItem(LANG_KEY) || 'uk';
+      const saved=localStorage.getItem(LANG_KEY)||'uk';
       applyLang(saved);
-
-      ukBtn.addEventListener('click', e => { e.preventDefault(); applyLang('uk'); });
-      enBtn.addEventListener('click', e => { e.preventDefault(); applyLang('en'); });
+      ukBtn.addEventListener('click',e=>{e.preventDefault();applyLang('uk')});
+      enBtn.addEventListener('click',e=>{e.preventDefault();applyLang('en')});
     })();
   </script>
 </body>

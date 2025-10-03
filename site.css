@@ -1,113 +1,119 @@
-/* === БАЗА / ЗМІННІ === */
 :root{
-  --brand:#2d442f;             /* темно-зелений для верхньої/нижньої смуг */
-  --page-bg:#dfe8f2;           /* сіро-блакитний фон сторінки */
+  --brand:#0a3d91;
   --text:#111827;
-  --safe: env(safe-area-inset-bottom, 0px);
-  --gap: 10px;
+  --btn-orange:#f97316;
+  --btn-blue:#2563eb;
+  --page-bg:#dfe8f2;
+  --nav-sand:#f5deb3;
+  --brand-blue:#87ceeb;
 
-  /* висоти нижніх смуг */
-  --ticker-h:60px;
-  --footer-h:44px;
+  /* нижні смуги */
+  --ticker-h:60px;    /* синя/зелена смуга з бігучим рядком */
+  --footer-h:44px;    /* сіро-зелена смуга з © */
   --between:0px;
+  --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
 }
 
-/* Скидання дрібниць */
-*{ box-sizing:border-box; }
+/* Скидання та базове */
+*{ box-sizing:border-box }
 html,body{ height:100%; margin:0; }
-img{ max-width:100%; height:auto; display:block; }
-
-/* Головні параметри сторінки */
 body{
   font-family: Arial, Helvetica, sans-serif;
-  color:var(--text);
-  background: var(--page-bg);
-  /* безпечні поля для iOS/Android (щоб смуги не ховались за Dock/Gesture bar) */
-  padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--gap) + var(--safe));
+  color: var(--text);
+
+  /* ФОН ГОЛОВНОЇ КАРТИНКИ — ШЛЯХ ДО ФАЙЛА В КОРЕНІ РЕПОЗИТОРІЮ */
+  /* Якщо файл називається інакше — перейменуй його в image1.png або заміни шлях нижче */
+  background: var(--page-bg) url('/tsau-site-3003/image1.png') no-repeat center top / contain;
+
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+
+  /* резерв місця під фіксовані нижні смуги */
+  padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
 }
 
-/* ===== ВЕРХНЯ СМУГА (HEADER) — на всю ширину ===== */
-header{
-  width:100%;
-  background:var(--brand);
+/* ШАПКА */
+.topbar{
+  background: #2d442f; /* темно-зелений (як у тебе на скрінах) */
   color:#fff;
-  display:flex; align-items:center; gap:16px;
   padding:12px 18px;
+  display:flex;
+  align-items:center;
+  gap:16px;
 }
-header .brand{
-  color:#fff; font-weight:700;
-  font-size:clamp(20px, 3vw, 32px);
+.brand{
+  font-weight:700;
+  font-size:32px;
   white-space:nowrap;
+  color:#fff; /* або #d4af37 якщо потрібний “золотий” */
 }
-header nav{ display:flex; gap:14px; flex-wrap:wrap; margin-left:10px; }
-header nav a{ color:#f5deb3; text-decoration:none; font-size:clamp(12px, 1.6vw, 14px); }
-header nav a:hover{ text-decoration:underline; }
+.main-nav{ display:flex; gap:14px; margin-left:10px; flex-wrap:wrap; }
+.main-nav a{ color: var(--nav-sand); text-decoration:none; font-size:14px; }
+.main-nav a:hover{ text-decoration:underline; }
+.lang-switch{ margin-left:auto; display:flex; align-items:center; gap:8px; }
+.lang-switch a{ color:#fff; text-decoration:none; }
 
-/* Кнопки перекладу праворуч (як на інших вкладках) */
-.top-actions{ margin-left:auto; display:flex; gap:8px; }
-.top-actions a{
-  background:rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.25);
-  color:#fff; border-radius:8px; padding:6px 10px; font-weight:700;
-  text-decoration:none;
-}
-.top-actions a.active{ background:#fff; color:#1f2937; }
+/* КОНТЕНТ */
+main{ flex:1 0 auto; padding:16px; }
+.page-home{}
 
-/* Блок з фоновим зображенням (коли картинка у <img> на Home) */
-.hero-wrap{ width:100%; max-width:1400px; margin-inline:auto; }
-.hero-wrap img{ width:100%; height:auto; display:block; }
-
-/* Напівпрозорий інформаційний блок */
-.info-card{
-  position:relative;
-  margin: 0 auto;                   /* центр по горизонталі */
-  width:min(88vw,780px);
-  background:rgba(255,255,255,.88); /* саме напівпрозорий білий */
-  border-radius:12px;
-  padding:16px 22px;
-  box-shadow:0 6px 18px rgba(0,0,0,.15);
-  text-align:center;
-  backdrop-filter: blur(1px);
-}
-.info-card h2{ margin:0 0 10px 0; font-size:28px; line-height:1.25; color:#183027; }
-.info-card p{ margin:0; font-size:18px; line-height:1.5; color:#183027; font-weight:700; }
-
-/* ===== НИЖНІ СМУГИ — ФІКСОВАНІ, ЗІ SAFE-GAP ===== */
+/* НИЖНІ ФІКСОВАНІ СМУГИ */
 .bottom-fixed{
-  position:fixed; left:0; bottom:calc(var(--safe));
-  width:100%; z-index:1000; pointer-events:none;
+  position: fixed;
+  left: 0;
+  bottom: var(--safe-gap);  /* щоб не перекрив Dock/Taskbar */
+  width: 100%;
+  z-index: 1000;
+  pointer-events: none;
 }
-.bottom-fixed .bottom-inner{
-  pointer-events:auto;
-  display:flex; flex-direction:column; gap:var(--between); width:100%;
+.bottom-inner{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--between);
+  pointer-events: auto;
 }
 
 /* Смуга з бігучим рядком */
 .bottom-bar{
-  background:var(--brand);
-  height:var(--ticker-h);
-  width:100%;
-  display:flex; align-items:center; justify-content:center;
+  background: #2d442f;   /* темно-зелений */
+  height: var(--ticker-h);
+  width: 100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   overflow:hidden;
 }
 .marquee{
-  white-space:nowrap; display:inline-block; padding:0 12px;
-  color:#fff; font-weight:700; font-size:18px;
-  animation:marq 25s linear infinite;
+  display:inline-block;
+  white-space:nowrap;
+  animation: scroll 25s linear infinite;
+  color:#fff;
+  font-size:18px;
+  font-weight:700;
+  padding:0 12px;
 }
-@keyframes marq{ 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
-
-/* Смуга з © */
-footer{
-  background:var(--page-bg);
-  height:var(--footer-h); width:100%;
-  display:flex; align-items:flex-start; justify-content:center;
-  padding-top:2px;                 /* ~0.1–0.5 мм еквівалент */
-  text-align:center; color:#222; font-size:14px;
+@keyframes scroll{
+  0%{ transform:translateX(100%); }
+  100%{ transform:translateX(-100%); }
 }
 
-/* Дрібні пристрої — ущільнюємо низ */
-@media (max-width:480px){
-  :root{ --ticker-h:52px; --footer-h:38px; }
+/* Нижня сіро-зелена смуга з © */
+.footer-strip{
+  background: #cfe0d6; /* сіро-зелений як на твоїх скрінах */
+  height: var(--footer-h);
+  width: 100%;
+  display:flex;
+  align-items:flex-start;        /* текст вгорі смуги */
+  justify-content:center;
+  text-align:center;
+  font-size:14px;
+  color:#222;
+}
+
+/* Адаптив дрібних екранів по висоті */
+@media (max-height: 620px){
+  :root{ --ticker-h:50px; --footer-h:38px; }
   .marquee{ font-size:16px; }
 }

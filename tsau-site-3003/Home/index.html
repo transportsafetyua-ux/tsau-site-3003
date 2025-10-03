@@ -6,16 +6,15 @@
   <title>Асоціація сприяння безпеці на транспорті України</title>
   <style>
     :root{
-      --brand:#2d442f;          /* зелений як на інших вкладках */
+      --brand:#2d442f;      /* зелений як на інших вкладках */
       --sand:#f5deb3;
       --page:#dfe8f2;
 
-      --header-h:64px;          /* висота верхньої смуги */
-      --ticker-h:60px;          /* бігучий рядок знизу */
-      --footer-h:44px;          /* нижній підпис */
+      --header-h:64px;
+      --ticker-h:60px;
+      --footer-h:44px;
       --between:0px;
       --safe:calc(10px + env(safe-area-inset-bottom,0px));
-
       --reserve-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe));
     }
 
@@ -24,10 +23,13 @@
     html,body{height:100%;margin:0}
     html{-webkit-text-size-adjust:100%}
     body{
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--page);
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--page);
       color:#111827;
-      padding-bottom: var(--reserve-bottom); /* щоб контент не їхав під фіксовані нижні смуги */
+      padding-bottom:var(--reserve-bottom); /* щоб контент не ховався під нижні смуги */
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
     }
 
     /* мови */
@@ -35,107 +37,90 @@
     .lang-en .t.uk{display:none}
     .lang-en .t.en{display:inline}
 
-    /* шапка */
+    /* шапка (НЕ фіксована, щоб не перекривала зображення) */
     header{
-      height: var(--header-h);
-      background: var(--brand);
+      min-height:var(--header-h);
+      background:var(--brand);
       color:#fff;
       display:flex; align-items:center; gap:12px;
-      padding: 0 16px;
+      padding:12px 16px;
+      flex-wrap:wrap;
+    }
+    .brand{font-weight:700; font-size:clamp(18px,4.4vw,32px); white-space:nowrap}
+    nav{display:flex; gap:12px; margin-left:12px; flex-wrap:wrap}
+    nav a{color:var(--sand); text-decoration:none; font-size:clamp(12px,3.2vw,14px)}
+    nav a:hover{text-decoration:underline}
+    .top-actions{margin-left:auto; display:flex; gap:8px}
+    .lang-btn{color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25)}
+    .lang-btn.active{background:rgba(255,255,255,.18)}
+
+    /* HERO: окремий контейнер з <img>, без background у body */
+    .hero{
+      position:relative;
+      width:100%;
+      min-height: clamp(60vh, 70vh, 78vh); /* висота блоку */
+      display:flex; align-items:center; justify-content:center;
       overflow:hidden;
     }
-    .brand{
-      font-weight:700;
-      font-size: clamp(18px, 4.5vw, 32px);
-      white-space:nowrap;
+    .hero > img{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit:cover;         /* Мобайл і більшість випадків */
+      object-position:center top;
     }
-    nav{ margin-left:12px; display:flex; gap:12px; flex-wrap:wrap }
-    nav a{ color:var(--sand); text-decoration:none; font-size:clamp(12px,3.2vw,14px) }
-    nav a:hover{ text-decoration:underline }
-    .top-actions{ margin-left:auto; display:flex; gap:8px }
-    .lang-btn{
-      color:#fff; text-decoration:none; font-weight:700;
-      padding:6px 10px; border-radius:6px;
-      border:1px solid rgba(255,255,255,.25)
-    }
-    .lang-btn.active{ background: rgba(255,255,255,.18) }
-
-    /* HERO з фоном buses.jpg */
-    .hero{
-      min-height: calc(100vh - var(--header-h) - var(--reserve-bottom));
-      background-image: url("../buses.jpg");   /* ТВОЄ фото з кореня */
-      background-size: cover;                  /* не обтинати текст / тягнути пропорційно */
-      background-position: center top;
-      display:flex;
-      align-items: center;                     /* центруємо по вертикалі */
-      justify-content: center;
-      padding: 24px 16px;
-      position: relative;
+    /* На широких екранах показуємо картинку повністю (без сильного кропу),
+       щоб на Mac не «наближало» надто сильно */
+    @media (min-width: 1100px){
+      .hero > img{ object-fit:contain; background:#cfd8e3; }
     }
 
-    /* напівпрозорий блок у центрі */
+    /* напівпрозорий текстовий карт-блок у центрі */
     .center-card{
-      background: rgba(255,255,255,.65);
-      backdrop-filter: blur(1px);
-      border-radius: 10px;
-      padding: clamp(12px, 3.2vw, 20px) clamp(16px, 3.8vw, 28px);
-      text-align: center;
-      color: var(--brand);
-      font-weight: 700;
-      line-height: 1.35;
-      font-size: clamp(16px, 4.6vw, 22px);
-      max-width: min(92vw, 680px);
-      box-shadow: 0 4px 14px rgba(0,0,0,.15);
+      position:relative;        /* поверх картинки */
+      z-index:1;
+      background:rgba(255,255,255,.65);
+      backdrop-filter:blur(1px);
+      border-radius:10px;
+      padding:clamp(12px,3.2vw,20px) clamp(16px,3.8vw,28px);
+      text-align:center;
+      color:var(--brand);
+      font-weight:700;
+      line-height:1.35;
+      font-size:clamp(16px,4.6vw,22px);
+      max-width:min(92vw,680px);
+      box-shadow:0 4px 14px rgba(0,0,0,.15);
     }
 
     /* нижні смуги — фіксовані */
     .bottom-fixed{
-      position: fixed;
-      left: 0;
-      bottom: var(--safe);
-      width: 100%;
-      z-index: 50;
-      pointer-events: none;
+      position:fixed; left:0; bottom:var(--safe);
+      width:100%; z-index:50; pointer-events:none;
     }
-    .bottom-inner{
-      width:100%;
-      display:flex; flex-direction:column;
-      gap: var(--between);
-      pointer-events:auto;
-    }
+    .bottom-inner{width:100%; display:flex; flex-direction:column; gap:var(--between); pointer-events:auto}
     .bottom-bar{
-      height: var(--ticker-h);
-      background: var(--brand);
-      color:#fff;
-      display:flex; align-items:center; justify-content:center;
-      overflow:hidden;
+      height:var(--ticker-h); background:var(--brand); color:#fff;
+      display:flex; align-items:center; justify-content:center; overflow:hidden;
     }
     .marquee{
-      display:inline-block;
-      white-space:nowrap;
-      animation: scroll 22s linear infinite;
-      font-weight:700;
-      font-size: clamp(13px, 3.8vw, 18px);
-      padding: 0 12px;
+      display:inline-block; white-space:nowrap; padding:0 12px;
+      animation:scroll 22s linear infinite;
+      font-weight:700; font-size:clamp(13px,3.8vw,18px);
     }
-    @keyframes scroll{ 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
-
+    @keyframes scroll{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
     footer{
-      height: var(--footer-h);
-      background: var(--page);
-      color:#222;
+      height:var(--footer-h); background:var(--page); color:#222;
       display:flex; align-items:flex-start; justify-content:center;
-      font-size: 14px;
-      text-align:center;
+      font-size:14px; text-align:center;
     }
 
-    /* АЛЬБОМНА орієнтація iPhone: трохи менші розміри, щоб нічого не накладалось */
-    @media (orientation: landscape){
-      :root{ --header-h:58px; --ticker-h:54px }
-      .brand{ font-size: clamp(18px, 3.4vw, 28px) }
-      nav a{ font-size: clamp(12px, 2.2vw, 14px) }
-      .center-card{ font-size: clamp(14px, 2.8vw, 18px) }
-      .marquee{ font-size: clamp(12px, 2.6vw, 16px) }
+    /* Альбомний режим iPhone — трохи менші розміри, щоб усе влізло */
+    @media (orientation:landscape){
+      :root{ --header-h:56px; --ticker-h:54px }
+      .brand{ font-size:clamp(18px,3.2vw,28px) }
+      nav a{ font-size:clamp(12px,2.2vw,14px) }
+      .center-card{ font-size:clamp(14px,2.6vw,18px) }
+      .marquee{ font-size:clamp(12px,2.4vw,16px) }
+      .hero{ min-height:68vh; }
     }
   </style>
 </head>
@@ -145,7 +130,6 @@
       <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
       <span class="t en">Transportation Safety Association of Ukraine</span>
     </div>
-
     <nav>
       <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
       <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
@@ -153,7 +137,6 @@
       <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
       <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
     </nav>
-
     <div class="top-actions">
       <a href="#" class="lang-btn" id="btn-uk">Укр</a>
       <a href="#" class="lang-btn" id="btn-en">EN</a>
@@ -161,6 +144,8 @@
   </header>
 
   <section class="hero">
+    <!-- ТВОЄ фото з кореня -->
+    <img src="../buses.jpg" alt="Автобуси України" />
     <div class="center-card">
       <span class="t uk">
         Впровадження стандартів ЄС<br>
@@ -189,7 +174,7 @@
   </div>
 
   <script>
-    /* Перемикач мови, як на інших вкладках */
+    /* Перемикач мови */
     (function(){
       const KEY='tsau_lang';
       const uk=document.getElementById('btn-uk');

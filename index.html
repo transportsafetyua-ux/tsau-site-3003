@@ -4,31 +4,132 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Асоціація сприяння безпеці на транспорті України</title>
+
   <style>
-    :root{--text:#111827;--page-bg:#dfe8f2;--ticker-h:60px;--footer-h:44px;--between:0px;--safe-gap:calc(10px + env(safe-area-inset-bottom,0));--brand:#2d442f;--nav-sand:#f5deb3}
-    *{box-sizing:border-box} html,body{height:100%;margin:0}
-    .t.en{display:none}.lang-en .t.uk{display:none}.lang-en .t.en{display:inline}
-    body{font-family:Arial,Helvetica,sans-serif;color:var(--text);background:var(--page-bg);
-      background-image:url('buses.jpg');background-repeat:no-repeat;background-position:center top;
-      background-size:contain;min-height:100vh;display:flex;flex-direction:column;
-      padding-bottom:calc(var(--ticker-h)+var(--between)+var(--footer-h)+var(--safe-gap))}
-    header{background:var(--brand);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:16px}
-    .brand{font-weight:700;font-size:32px;white-space:nowrap;color:#fff}
-    nav{display:flex;gap:14px;flex-wrap:wrap;margin-left:10px}
-    nav a{color:var(--nav-sand);text-decoration:none;font-size:14px} nav a:hover{text-decoration:underline}
-    .top-actions{margin-left:auto;display:flex;gap:12px}
-    .lang-btn{color:#fff;text-decoration:none;font-weight:700;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25)}
-    .lang-btn.active{background:rgba(255,255,255,.18)}
-    main{flex:1 0 auto;padding:16px}
-    .center-text-block{position:absolute;left:50%;transform:translateX(-50%);top:60%;
-      background:rgba(255,255,255,.6);padding:16px 24px;border-radius:8px;text-align:center;
-      font-size:22px;font-weight:700;line-height:1.5;color:var(--brand);backdrop-filter:blur(1px)}
-    .bottom-fixed{position:fixed;left:0;bottom:var(--safe-gap);width:100%;z-index:1000;pointer-events:none}
-    .bottom-inner{width:100%;display:flex;flex-direction:column;gap:var(--between);pointer-events:auto}
-    .bottom-bar{background:var(--brand);height:var(--ticker-h);display:flex;align-items:center;justify-content:center;overflow:hidden}
-    .marquee{display:inline-block;white-space:nowrap;animation:scroll 25s linear infinite;color:#fff;font-size:18px;font-weight:700;padding:0 12px}
-    @keyframes scroll{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
-    footer{background:var(--page-bg);height:var(--footer-h);display:flex;align-items:flex-start;justify-content:center;text-align:center;font-size:14px;color:#222}
+    :root{
+      --text:#111827;
+      --page-bg:#dfe8f2;
+      --ticker-h:60px;
+      --footer-h:44px;
+      --between:0px;
+      --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
+      --brand:#2d442f;
+      --nav-sand:#f5deb3;
+    }
+
+    *{ box-sizing:border-box }
+    html,body{ height:100%; margin:0; }
+
+    .t.en{ display:none; }
+    .lang-en .t.uk{ display:none; }
+    .lang-en .t.en{ display:inline; }
+
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background-color: var(--page-bg);
+      background-image: url('buses.jpg');
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: contain;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
+    }
+
+    header{
+      background: var(--brand);
+      color:#fff;
+      padding:12px 18px;
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+    .brand{
+      font-weight:700;
+      font-size:32px;
+      white-space:nowrap;
+      color:#fff;
+    }
+    nav{ display:flex; gap:14px; margin-left:10px; flex-wrap:wrap; }
+    nav a{ color: var(--nav-sand); text-decoration:none; font-size:14px; }
+    nav a:hover{ text-decoration:underline; }
+
+    .top-actions{ margin-left:auto; display:flex; align-items:center; gap:12px; }
+    .lang-btn{
+      color:#fff; text-decoration:none; font-weight:700;
+      padding:6px 10px; border-radius:6px;
+      border:1px solid rgba(255,255,255,.25);
+    }
+    .lang-btn.active{ background: rgba(255,255,255,.18); }
+
+    main{ flex:1 0 auto; padding:16px; }
+
+    .center-text-block{
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 60%;
+      background: rgba(255,255,255,0.6);
+      padding: 16px 24px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--brand);
+      backdrop-filter: blur(1px);
+    }
+
+    .bottom-fixed{
+      position: fixed;
+      left: 0;
+      bottom: var(--safe-gap);
+      width: 100%;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    .bottom-inner{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--between);
+      pointer-events: auto;
+    }
+    .bottom-bar{
+      background: var(--brand);
+      height: var(--ticker-h);
+      width: 100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .marquee{
+      display:inline-block;
+      white-space:nowrap;
+      animation: scroll 25s linear infinite;
+      color:#fff;
+      font-size:18px;
+      font-weight:700;
+      padding:0 12px;
+    }
+    @keyframes scroll{
+      0%{ transform:translateX(100%); }
+      100%{ transform:translateX(-100%); }
+    }
+    footer{
+      background: var(--page-bg);
+      height: var(--footer-h);
+      width: 100%;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      text-align:center;
+      font-size:14px;
+      color:#222;
+    }
   </style>
 </head>
 <body>
@@ -37,6 +138,7 @@
       <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
       <span class="t en">Transportation Safety Association of Ukraine</span>
     </div>
+
     <nav>
       <a href="Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
       <a href="About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
@@ -44,6 +146,7 @@
       <a href="Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
       <a href="Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
     </nav>
+
     <div class="top-actions">
       <a href="#" class="lang-btn" id="btn-uk">Укр</a>
       <a href="#" class="lang-btn" id="btn-en">EN</a>
@@ -53,8 +156,16 @@
   <main></main>
 
   <div class="center-text-block">
-    <span class="t uk">Впровадження стандартів ЄС<br>задля якості послуг для пасажирів<br>і сталого розвитку громад</span>
-    <span class="t en">Implementing EU standards<br>to ensure quality services for passengers<br>and sustainable community development</span>
+    <span class="t uk">
+      Впровадження стандартів ЄС<br>
+      задля якості послуг для пасажирів<br>
+      і сталого розвитку громад
+    </span>
+    <span class="t en">
+      Implementing EU standards<br>
+      to ensure quality services for passengers<br>
+      and sustainable community development
+    </span>
   </div>
 
   <div class="bottom-fixed">
@@ -71,10 +182,23 @@
 
   <script>
     (function(){
-      const KEY='tsau_lang', body=document.body, uk=document.getElementById('btn-uk'), en=document.getElementById('btn-en');
-      function set(l){ body.classList.toggle('lang-en', l==='en'); localStorage.setItem(KEY,l);
-        uk.classList.toggle('active', l==='uk'); en.classList.toggle('active', l==='en'); }
-      set(localStorage.getItem(KEY)||'uk'); uk.onclick=e=>{e.preventDefault();set('uk')}; en.onclick=e=>{e.preventDefault();set('en')};
+      const LANG_KEY = 'tsau_lang';
+      const body = document.body;
+      const ukBtn = document.getElementById('btn-uk');
+      const enBtn = document.getElementById('btn-en');
+
+      function applyLang(lang){
+        body.classList.toggle('lang-en', lang === 'en');
+        localStorage.setItem(LANG_KEY, lang);
+        ukBtn.classList.toggle('active', lang === 'uk');
+        enBtn.classList.toggle('active', lang === 'en');
+      }
+
+      const saved = localStorage.getItem(LANG_KEY) || 'uk';
+      applyLang(saved);
+
+      ukBtn.addEventListener('click', e => { e.preventDefault(); applyLang('uk'); });
+      enBtn.addEventListener('click', e => { e.preventDefault(); applyLang('en'); });
     })();
   </script>
 </body>

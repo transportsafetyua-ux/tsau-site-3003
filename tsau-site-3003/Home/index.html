@@ -7,48 +7,42 @@
 
   <style>
     :root{
+      --brand:#0a3d91;
       --text:#111827;
+      --btn-orange:#f97316;
+      --btn-blue:#2563eb;
       --page-bg:#dfe8f2;
-
-      /* нижні смуги */
-      --ticker-h:60px;
-      --footer-h:44px;
-      --between:0px;
-      --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
-
-      /* зелено-сірий брендовий колір, як на інших вкладках */
-      --brand:#2d442f;
       --nav-sand:#f5deb3;
+      --brand-blue:#87ceeb;
+      --ticker-h:60px;     /* синя смуга з бігучим рядком */
+      --footer-h:44px;     /* сіро-блакитна смуга з © */
+      --between:0px;       /* відстань між нижніми смугами */
+      --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
     }
 
     *{ box-sizing:border-box }
     html,body{ height:100%; margin:0; }
-
-    /* Перемикач мови (укр/англ) — як на сторінці “Про нас” */
-    .t.en{ display:none; }
-    .lang-en .t.uk{ display:none; }
-    .lang-en .t.en{ display:inline; }
 
     body{
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background-color: var(--page-bg);
 
-      /* фон-ілюстрація автобусів зберігається */
-      background-image: url('buses.jpg');
+      /* ФОН КАРТИНКА: показати повністю по ширині, без обрізки */
+      background-image: url('/tsau-site-3003/Home/buses.jpg');
       background-repeat: no-repeat;
-      background-position: center top;
-      background-size: contain;
+      background-position: center top;  /* картинка починається одразу під шапкою */
+      background-size: contain;         /* вся картинка видна по ширині */
 
       min-height:100vh;
       display:flex;
       flex-direction:column;
 
-      /* резерв місця під фіксовані нижні смуги */
+      /* Резерв місця, щоб контент не заходив під фіксовані нижні смуги */
       padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
     }
 
-    /* ШАПКА — стилі як на інших вкладках */
+    /* Шапка */
     header{
       background: var(--brand);
       color:#fff;
@@ -56,45 +50,31 @@
       display:flex;
       align-items:center;
       gap:16px;
+      width:100%;
     }
     .brand{
       font-weight:700;
       font-size:32px;
       white-space:nowrap;
-      color:#fff;  /* білі літери бренду, як просили раніше */
+      color: var(--brand-blue);
     }
     nav{ display:flex; gap:14px; margin-left:10px; flex-wrap:wrap; }
     nav a{ color: var(--nav-sand); text-decoration:none; font-size:14px; }
     nav a:hover{ text-decoration:underline; }
 
-    .top-actions{ margin-left:auto; display:flex; align-items:center; gap:12px; }
-    .lang-btn{
-      color:#fff; text-decoration:none; font-weight:700;
-      padding:6px 10px; border-radius:6px;
-      border:1px solid rgba(255,255,255,.25);
+    .top-actions{ margin-left:auto; display:flex; align-items:center; gap:8px; }
+    .btn{
+      display:inline-block; padding:8px 14px; border-radius:6px;
+      font-weight:700; color:#fff; text-decoration:none; font-size:14px;
+      box-shadow:0 1px 3px rgba(0,0,0,.25);
     }
-    .lang-btn.active{ background: rgba(255,255,255,.18); }
+    .btn.orange{ background:var(--btn-orange); }
+    .btn.blue{   background:var(--btn-blue); }
 
+    /* Контент (напівпрозорий блок тут ВІДСУТНІЙ — як у вашому останньому стабільному стані) */
     main{ flex:1 0 auto; padding:16px; }
 
-    /* Напівпрозорий центральний блок із трьома рядками — НЕ чіпали, лише дали дві мови */
-    .center-text-block{
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 60%;                         /* залишено ваше поточне розташування */
-      background: rgba(255,255,255,0.6);
-      padding: 16px 24px;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 1.5;
-      color: var(--brand);              /* колір літер як у смуги з бігучим рядком */
-      backdrop-filter: blur(1px);
-    }
-
-    /* НИЖНІ СМУГИ (залишено без змін) */
+    /* Нижні смуги фіксовані, з безпечним зазором */
     .bottom-fixed{
       position: fixed;
       left: 0;
@@ -110,6 +90,8 @@
       gap: var(--between);
       pointer-events: auto;
     }
+
+    /* Синя смуга з бігучим рядком */
     .bottom-bar{
       background: var(--brand);
       height: var(--ticker-h);
@@ -132,89 +114,60 @@
       0%{ transform:translateX(100%); }
       100%{ transform:translateX(-100%); }
     }
+
+    /* Сіро-блакитна смуга з © */
     footer{
       background: var(--page-bg);
       height: var(--footer-h);
       width: 100%;
       display:flex;
-      align-items:flex-start;
+      align-items:flex-start; /* текст «липне» до верхнього краю смуги, як ви просили раніше */
       justify-content:center;
       text-align:center;
       font-size:14px;
       color:#222;
     }
+
+    /* Трохи компактніше на дуже низьких екранах */
+    @media (max-height: 620px){
+      :root{ --ticker-h:50px; --footer-h:38px; }
+      .marquee{ font-size:16px; }
+    }
   </style>
 </head>
 <body>
+
   <header>
-    <div class="brand">
-      <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
-      <span class="t en">Transportation Safety Association of Ukraine</span>
-    </div>
-
+    <div class="brand">Асоціація сприяння безпеці на транспорті України</div>
     <nav>
-      <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
-      <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
-      <a href="../Programs/index.html"><span class="t uk">Програми</span><span class="t en">Programs</span></a>
-      <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
-      <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
+      <a href="/tsau-site-3003/Home/index.html">Головна</a>
+      <a href="/tsau-site-3003/About/index.html">Про нас</a>
+      <a href="/tsau-site-3003/Programs/index.html">Програми</a>
+      <a href="/tsau-site-3003/Publications/index.html">Публікації</a>
+      <a href="/tsau-site-3003/Contacts/index.html">Контакти</a>
     </nav>
-
     <div class="top-actions">
-      <a href="#" class="lang-btn" id="btn-uk">Укр</a>
-      <a href="#" class="lang-btn" id="btn-en">EN</a>
+      <!-- Мовні тумблери без логіки (статичний HTML) залишено як текст,
+           щоб не змінювати поведінку сторінки -->
+      <span style="color:#fff;">Укр</span> | <span style="color:#fff;">EN</span>
     </div>
   </header>
 
-  <main></main>
+  <main>
+    <!-- Головна без напівпрозорого блоку (як у вашому “стабільному” варіанті) -->
+  </main>
 
-  <div class="center-text-block">
-    <span class="t uk">
-      Впровадження стандартів ЄС<br>
-      задля якості послуг для пасажирів<br>
-      і сталого розвитку громад
-    </span>
-    <span class="t en">
-      Implementing EU standards<br>
-      to ensure quality services for passengers<br>
-      and sustainable community development
-    </span>
-  </div>
-
-  <!-- Нижні смуги -->
   <div class="bottom-fixed">
     <div class="bottom-inner">
       <div class="bottom-bar">
         <div class="marquee">
-          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</span>
-          <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ</span>
+          АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE –
+          АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE
         </div>
       </div>
       <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
     </div>
   </div>
 
-  <!-- Та сама логіка перемикача мови, що й на “Про нас” -->
-  <script>
-    (function(){
-      const LANG_KEY = 'tsau_lang';
-      const body = document.body;
-      const ukBtn = document.getElementById('btn-uk');
-      const enBtn = document.getElementById('btn-en');
-
-      function applyLang(lang){
-        body.classList.toggle('lang-en', lang === 'en');
-        localStorage.setItem(LANG_KEY, lang);
-        ukBtn.classList.toggle('active', lang === 'uk');
-        enBtn.classList.toggle('active', lang === 'en');
-      }
-
-      const saved = localStorage.getItem(LANG_KEY) || 'uk';
-      applyLang(saved);
-
-      ukBtn.addEventListener('click', e => { e.preventDefault(); applyLang('uk'); });
-      enBtn.addEventListener('click', e => { e.preventDefault(); applyLang('en'); });
-    })();
-  </script>
 </body>
 </html>
